@@ -1,24 +1,28 @@
 # Leemos dataset
 
-breast.cancer <- read.csv('https://raw.githubusercontent.com/analuisaortega/BEDU-R-2020/master/Data/wdbc.data',
-                          head = FALSE)
+breast.cancer <- read.csv('https://raw.githubusercontent.com/analuisaortega/BEDU-R-2020/master/Data/breast_cancer.csv')
+
+head(breast.cancer)
 
 str(breast.cancer)
 
-unique(breast.cancer$V2)
+unique(breast.cancer$diagnosis)
 
-summary(breast.cancer)
-
-sum(is.na(breast.cancer[,1]))
+# Buscar los valores
+sum(is.na(breast.cancer[ , 1]))
 
 # Reto 1: con un ciclo for
-for (i in 1:length(names(breast.cancer))) {
-  print(breast.cancer[,i])
+#         haz la suma de los na por columnas e imprime el resultado
+for (i in 1:ncol(breast.cancer)) {
+  print(sum(is.na(breast.cancer[,i])))
 }
 
 # Cambiamos el nombre de las columnas
+names(breast.cancer.filter)
 
-names(breast.cancer)
+names(breast.cancer)[1] <- c('contador')
+
+ncol(breast.cancer)
 
 names(breast.cancer) <- c('id','diagnosis','radius_mean',
                           'texture_mean','perimeter_mean','area_mean',
@@ -33,9 +37,6 @@ names(breast.cancer) <- c('id','diagnosis','radius_mean',
                           'smoothnes_worst','compactness_worst',
                           'concavity_worst','concave_points_worst',
                           'symmetry_worst','fractal_dimension_worst')
-
-# Reto 0: a. Cambiar el nombre de las columnas
-#         b. ¿Cuál es el nombre de la variable que tiene el máximo mas alto?
 
 
 
@@ -62,18 +63,17 @@ interest.col <- breast.cancer.filter$radius_mean
 print(paste('Promedio:', mean(interest.col)))
 print(paste('Mediana:', median(interest.col)))
 
-# Reto 1: Buscar en google el nombre de la función que nos da la moda en R
+# Reto 1: Buscar en google el nombre de la función en el paquete modeest
+#         que nos da la moda en R
+#         Encuentra la moda
 
-# Pasto 7. Encuentra la moda
+# install.packages('modeest')
 library(modeest)
-mlv(interest.col)
+mlv(interest.col, method = 'mfv')
 
 
 #### Medidas de dispersión
 breast.cancer.filter
-
-# Eliminamos una columna
-breast.cancer.filter$id <- NULL
 
 # Paso 1. Encontrar varianza
 var.radius <- var(interest.col)
@@ -98,19 +98,24 @@ print(range.col)
 
 ## Distribucion
 
-# Paso 3. Encontramos deciles
-quant.col <- quantile(breast.cancer$radius_mean, 
-                      c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1))
-
+# Paso 3. Encontramos cuartiles
+quant.col <- quantile(breast.cancer$radius_mean)
 quant.col
 
-# Reto 2: Encontrar los cuartiles para interest.col
+# Paso 3. Encontramos deciles
+quant.col <- quantile(breast.cancer$perimeter_mean, 
+                      c(0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1))
 
-cut(interest.col, breaks = quant.col)
-interest.col
+# Reto 2: Encontrar los percentiles para la columna de perimiter_mean
+quantile(breast.cancer.filter$perimeter_mean, seq(0,1,by=0.01))
+# Reto 3: ¿En dónde se están acumulando el 85% de los datos?
+quantile(breast.cancer.filter$perimeter_mean, .85)
+
+cut(breast.cancer.filter$perimeter_mean, breaks = quant.col)
 
 # Paso 4. Usamos cut para ver en que decil esta cada observacion
-breast.cancer.filter$qcuts <- cut(interest.col, breaks = quant.col)
+breast.cancer.filter$qcuts <- cut(breast.cancer.filter$perimeter_mean, 
+                                  breaks = quant.col)
 
 # Paso 5. Vemos el restultado de nuestro cut
 table(breast.cancer.filter$qcuts)
