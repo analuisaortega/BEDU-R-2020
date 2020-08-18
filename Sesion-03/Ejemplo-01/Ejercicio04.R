@@ -1,27 +1,32 @@
 ######################################
 ########## Fundamentos de R ##########
-##########    Sesión 01     ##########
-##########  Ejercicio 04    ##########
+##########    Sesión 03     ##########
+##########  Ejercicio 01    ##########
 ######################################
 
-# Para ver la ruta de dónde estamos trabajando
-getwd()
+# Lectura desde archivo raw de git
+df <- read.csv('https://raw.githubusercontent.com/analuisaortega/BEDU-R-2020/master/Data/Metro_Interstate_Traffic_Volume.csv')
+head(df)
 
-setwd('C:/Users/AnaLuisaOrtegaRenter/Desktop/Cursos-Al/BEDU_June2020/Repository/Programming-Statistics-with-R/Data')
-# Alternativa: Session -> Set Working Directory -> Choose Directory
-
-df <- read.csv('Metro_Interstate_Traffic_Volume.csv')
+df_2 <- read.csv("C:/Users/AnaLuisaOrtegaRenter/Desktop/Cursos-Al/BEDU-R-2020/BEDU-R-2020/Data/Metro_Interstate_Traffic_Volume.csv")
 # Alternativa: Import Dataset -> From Text(base) 
 
-dfgit <- read.csv('https://raw.githubusercontent.com/analuisaortega/Programming-Statistics-with-R/master/Data/Metro_Interstate_Traffic_Volume.csv')
-head(dfgit)
+getwd()
+
+setwd("C:/Users/AnaLuisaOrtegaRenter/Desktop/Cursos-Al/BEDU-R-2020/BEDU-R-2020/Data")
+
+getwd()
+
+df <- read.csv('Metro_Interstate_Traffic_Volume.csv')
 
 # Podemos quedarnos solamente con las primeras 20 observaciones
-dataframe.traffic.20 <- head(dataframe.traffic, 20)
+data_20 <- head(df, 20)
 
 # Podemos guardarla como csv en local
-write.csv(dataframe.traffic.20, file = 'Short_DF_Example.csv')
- 
+write.csv(data_20, file = 'metro_data_170820.csv')
+
+getwd()
+
 
 
 
