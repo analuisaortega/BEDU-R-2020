@@ -32,18 +32,3 @@ for (k in 1:50) {
   } 
 }
 
-# Reto: 
-
-pregunta_numero <- function(){
-  num <- readline(prompt = 'Dime un número')
-  return(num)
-  }
-
-numero <- as.integer(pregunta_numero())
-
-while (numero != 6) {
-  print('Numero equivocado')
-  numero <- as.integer(pregunto_numero())
-}
-
-
