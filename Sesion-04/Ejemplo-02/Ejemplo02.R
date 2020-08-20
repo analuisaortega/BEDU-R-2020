@@ -1,25 +1,17 @@
-5 + 6 
+5 + 6
 10 - 6
 5 %% 2
 
+# Operador binario de la suma al cuadrado
 '%?%' <- function(izq,der){
-  res <- (izq+der)^2
+  res <- (izq+der)**2
   return(res)
 }
 
-4 %?% 5
-
-bincuad <- function(izq,der){
-  res <- (izq+der)^2
-  return(res)
-}
-
-bincuad(2,1)
-
-
-# Reto 1: Crear un operador binario llamado %BinCub%
+# Reto 2: Crear un operador binario llamado %BinCub%
 # que el resultado sea el binomio al cubo de dos numeros 
-# (a + b)^3 
+# (a + b)**3
+# Ejecuten 4 %BinCub% 10
 
 
 '%BinCub%' <- function(a,b){
